@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Tricks(models.Model):
+class Trick(models.Model):
       title = models.CharField(max_length=120)
       description = models.TextField()
       completed = models.BooleanField(default=False)
@@ -10,3 +10,5 @@ class Tricks(models.Model):
         return self.title
 
 # I'm going to want to have tricks as sub categories for the Main Categories: Ollies, Flips, Grinds, & Transition
+
+# I'm going to want additional subcategories for variations on the specific tricks (revert, slow, fast)
