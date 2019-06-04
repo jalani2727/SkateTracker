@@ -122,7 +122,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# This is where the React Front-end will be served 
-CORS_ORIGIN_WHITELIST = (
-         'localhost:3000/'
-     )
+# NOTE This is where the React Front-end will be served 
+    # This need to be a list and not a tuple, as shown in the walkthrough
+CORS_ORIGIN_WHITELIST = [
+         'http://localhost:3000'
+]

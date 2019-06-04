@@ -14,8 +14,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include                 
+from rest_framework import routers                    
+from SkateTracker import views 
+
+router = routers.DefaultRouter()
+router.register(r'tricks', views.TrickView, 'SkateTracker')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include(router.urls))
 ]
+
+# NOTE The router class allows us to make the following queries:
+    # api/tricks/ - This returns a list of all the Trick items (Create and Read operations can be done here).
+    # api/tricks/id - this returns a single Trick item using the id primary key (Update and Delete operations can be done here.
+ 
