@@ -30,12 +30,14 @@ class App extends Component {
       trickList: trickItems
     };
   }
+
   displayCompleted = status => {
     if (status) {
       return this.setState({ viewCompleted: true });
     }
     return this.setState({ viewCompleted: false });
   };
+  // For tabbing through tricks I have performed and tricks I haven't performed 
   renderTabList = () => {
     return (
       <div className="my-5 tab-list">
@@ -43,21 +45,24 @@ class App extends Component {
           onClick={() => this.displayCompleted(true)}
           className={this.state.viewCompleted ? "active" : ""}
         >
-          complete
+          Performed 
         </span>
         <span
           onClick={() => this.displayCompleted(false)}
           className={this.state.viewCompleted ? "" : "active"}
         >
-          Incomplete
+          Yet to perform
         </span>
       </div>
     );
   };
+
+  // Displays the list of tricks.
+  // NOTE Change method name to renderTricks  
   renderItems = () => {
     const { viewCompleted } = this.state;
     const newItems = this.state.trickList.filter(
-      item => item.completed == viewCompleted
+      item => item.completed === viewCompleted
     );
     return newItems.map(item => (
       <li
@@ -80,14 +85,15 @@ class App extends Component {
     ));
   };
   render() {
+    
     return (
       <main className="content">
-        <h1 className="text-white text-uppercase text-center my-4">trick app</h1>
+        <h1 className="text-white text-center my-4">SkateTracker</h1>
         <div className="row ">
           <div className="col-md-6 col-sm-10 mx-auto p-0">
             <div className="card p-3">
               <div className="">
-                <button className="btn btn-primary">Add task</button>
+                <button className="btn btn-primary">New Trick</button>
               </div>
               {this.renderTabList()}
               <ul className="list-group list-group-flush">
