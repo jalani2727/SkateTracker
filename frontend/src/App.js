@@ -1,6 +1,11 @@
 // frontend/src/App.js
 
 import React, { Component } from "react";
+import Modal from "./components/Modal";
+
+
+
+
 const trickItems = [
   {
     id: 1,
@@ -26,10 +31,34 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      modal: false,
       viewCompleted: false,
+      activeItem: {
+        title: "",
+        description: "",
+        completed: false
+      },
       trickList: trickItems
     };
   }
+
+  toggle = () => {
+    this.setState({ modal: !this.state.modal });
+  };
+  handleSubmit = item => {
+    this.toggle();
+    alert("save" + JSON.stringify(item));
+  };
+  handleDelete = item => {
+    alert("delete" + JSON.stringify(item));
+  };
+  createItem = () => {
+    const item = { title: "", description: "", completed: false };
+    this.setState({ activeItem: item, modal: !this.state.modal });
+  };
+  editItem = item => {
+    this.setState({ activeItem: item, modal: !this.state.modal });
+  };
 
   displayCompleted = status => {
     if (status) {
@@ -93,7 +122,7 @@ class App extends Component {
           <div className="col-md-6 col-sm-10 mx-auto p-0">
             <div className="card p-3">
               <div className="">
-                <button className="btn btn-primary">New Trick</button>
+                <button onClick={this.createItem} className="btn btn-primary">New Trick</button>
               </div>
               {this.renderTabList()}
               <ul className="list-group list-group-flush">
@@ -102,6 +131,9 @@ class App extends Component {
             </div>
           </div>
         </div>
+        {this.state.modal ? (
+          <Modal activeItem={this.state.activeItem} toggle={this.toggle} onSave={this.handleSubmit}/>
+        ) : null}
       </main>
     );
   }

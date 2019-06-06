@@ -10,7 +10,7 @@ import {
     Input,
     Label
 } from "reactstrap";
-
+// handling functions like added and editing tricks 
 export default class CustomModal extends Component {
     constructor(props) {
         super(props);
@@ -31,7 +31,7 @@ export default class CustomModal extends Component {
         const { toggle, onSave } = this.props;
         return (
             <Modal isOpen={true} toggle={toggle}>
-            <ModalHeader toggle={toggle}> Trick </ModalHeader>
+            <ModalHeader toggle={toggle}>Trick</ModalHeader>
             <ModalBody>
               <Form>
                 <FormGroup>
