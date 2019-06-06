@@ -2,31 +2,14 @@
 
 import React, { Component } from "react";
 import Modal from "./components/Modal";
+import axios from "axios";
 
 
 
 
-const trickItems = [
-  {
-    id: 1,
-    title: "Frontside 180",
-    description: "An ollie with a 180-degree frontside turn.",
-    completed: true
-  },
-  {
-    id: 2,
-    title: "Backside 180",
-    description: "An ollie with a 180-degree backside spin.",
-    completed: false
-  },
-  {
-    id: 3,
-    title: "Stairs",
-    description: "Ollies off of drops of varying heights. Measured by the number of stairs traversed.",
-    completed: false
-  }
+
   
-];
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -38,35 +21,24 @@ class App extends Component {
         description: "",
         completed: false
       },
-      trickList: trickItems
+      trickList: []
     };
   }
 
-  toggle = () => {
-    this.setState({ modal: !this.state.modal });
+  componentDidMount() {
+    this.refreshList();
+  }
+  // refreshList() is reusable that is called each time an API request is completed. It updates the Todo list to display the most recent list of added items.
+  refreshList = () => {
+    axios.get("/api/tricks/").then(res => this.setState({trickList: res.data})).catch(err => console.log(err));
   };
-  handleSubmit = item => {
-    this.toggle();
-    alert("save" + JSON.stringify(item));
-  };
-  handleDelete = item => {
-    alert("delete" + JSON.stringify(item));
-  };
-  createItem = () => {
-    const item = { title: "", description: "", completed: false };
-    this.setState({ activeItem: item, modal: !this.state.modal });
-  };
-  editItem = item => {
-    this.setState({ activeItem: item, modal: !this.state.modal });
-  };
-
   displayCompleted = status => {
     if (status) {
-      return this.setState({ viewCompleted: true });
+      return this.setState({viewCompleted: true})
     }
-    return this.setState({ viewCompleted: false });
+    return this.setState({viewCompleted: false});
   };
-  // For tabbing through tricks I have performed and tricks I haven't performed 
+
   renderTabList = () => {
     return (
       <div className="my-5 tab-list">
@@ -74,20 +46,17 @@ class App extends Component {
           onClick={() => this.displayCompleted(true)}
           className={this.state.viewCompleted ? "active" : ""}
         >
-          Performed 
+          Performed
         </span>
         <span
           onClick={() => this.displayCompleted(false)}
           className={this.state.viewCompleted ? "" : "active"}
         >
-          Yet to perform
+          Yet to Perform
         </span>
       </div>
     );
   };
-
-  // Displays the list of tricks.
-  // NOTE Change method name to renderTricks  
   renderItems = () => {
     const { viewCompleted } = this.state;
     const newItems = this.state.trickList.filter(
@@ -107,12 +76,53 @@ class App extends Component {
           {item.title}
         </span>
         <span>
-          <button className="btn btn-secondary mr-2"> Edit </button>
-          <button className="btn btn-danger">Delete </button>
+          <button
+            onClick={() => this.editItem(item)}
+            className="btn btn-secondary mr-2"
+          >
+            {" "}
+            Edit{" "}
+          </button>
+          <button
+            onClick={() => this.handleDelete(item)}
+            className="btn btn-danger"
+          >
+            Delete{" "}
+          </button>
         </span>
       </li>
     ));
   };
+  toggle = () => {
+    this.setState({ modal: !this.state.modal });
+  };
+
+  // handleSubmit() takes care of both the create and update operations. If the item passed as the parameter doesn’t have an id, then it has probably not been created, so the function creates it.
+  handleSubmit = item => {
+    this.toggle();
+    if (item.id) {
+      axios
+        .put(`http://localhost:8000/api/tricks/${item.id}/`, item)
+        .then(res => this.refreshList());
+      return;
+    }
+    axios
+      .post("http://localhost:8000/api/tricks/", item)
+      .then(res => this.refreshList());
+  };
+  handleDelete = item => {
+    axios
+      .delete(`http://localhost:8000/api/tricks/${item.id}`)
+      .then(res => this.refreshList());
+  };
+  createItem = () => {
+    const item = { title: "", description: "", completed: false };
+    this.setState({ activeItem: item, modal: !this.state.modal });
+  };
+  editItem = item => {
+    this.setState({ activeItem: item, modal: !this.state.modal });
+  };
+
   render() {
     
     return (
