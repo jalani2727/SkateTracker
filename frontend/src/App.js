@@ -30,7 +30,9 @@ class App extends Component {
   }
   // refreshList() is reusable that is called each time an API request is completed. It updates the Todo list to display the most recent list of added items.
   refreshList = () => {
-    axios.get("/api/tricks/").then(res => this.setState({trickList: res.data})).catch(err => console.log(err));
+    axios.get("http://localhost:8000/api/tricks/")
+    .then(res => this.setState({trickList: res.data}))
+    .catch(err => console.log(err));
   };
   displayCompleted = status => {
     if (status) {
