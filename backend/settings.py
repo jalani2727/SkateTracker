@@ -26,7 +26,7 @@ SECRET_KEY = 's3ccl8nq(_n_h!dqenb3^36b-cib#(box1+%z*=x-dusut!4f5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['skatetracker.herokuapp.com', '127.0.0.1:8000']
+ALLOWED_HOSTS = ['skatetracker.herokuapp.com', '127.0.0.1:8000', '127.0.0.1']
 
 
 # Application definition
@@ -129,7 +129,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'frontend', "build", "static"),  # update the STATICFILES_DIRS
 )
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # NOTE This is where the React Front-end will be served 
     # This need to be a list and not a tuple, as shown in the walkthrough
