@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include                 
 from rest_framework import routers                    
-from SkateTracker import views 
+from SkateTracker import views
 
 router = routers.DefaultRouter()
 router.register(r'tricks', views.TrickView, 'SkateTracker')
@@ -24,7 +24,7 @@ router.register(r'tricks', views.TrickView, 'SkateTracker')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('', views.TrickView)
+    path('', views.TrickView.as_view())
 ]
 
 # NOTE The router class allows us to make the following queries:
