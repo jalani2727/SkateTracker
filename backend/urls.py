@@ -23,7 +23,8 @@ router.register(r'tricks', views.TrickView, 'SkateTracker')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls))
+    path('api/', include(router.urls)),
+    path('skatetracker.herokuapp.com', views)
 ]
 
 # NOTE The router class allows us to make the following queries:
