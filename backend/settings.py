@@ -38,14 +38,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'SkateTracker',
-    'corsheaders',            
-    'rest_framework'
+
+    'rest_framework',
+    'corsheaders',   
+
+    'SkateTracker'
 ]
 
 MIDDLEWARE = [
-    'django.middleware.csrf.CsrfViewMiddleware',
     'corsheaders.middleware.CorsMiddleware', 
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -136,8 +138,6 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 CORS_ORIGIN_WHITELIST = [
          'http://localhost:3000'
 ]
-
+CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True # added to solve CORS
-CSRF_COOKIE_NAME = "csrftoken"
-CSRF_HEADER_NAME = "X-CSRFTOKEN"
-CORS_ALLOW_HEADERS = "X-CSRFToken"
+

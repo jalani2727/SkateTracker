@@ -6,6 +6,7 @@ import Modal from "./components/Modal";
 import axios from "axios";
 
 
+axios.defaults.withCredentials = true;
 
 
   
@@ -34,6 +35,7 @@ class App extends Component {
     .then(res => this.setState({trickList: res.data}))
     .catch(err => console.log(err));
   };
+
   displayCompleted = status => {
     if (status) {
       return this.setState({viewCompleted: true})
@@ -105,31 +107,49 @@ class App extends Component {
   };
 
   // handleSubmit() takes care of both the create and update operations. If the item passed as the parameter doesn’t have an id, then it has probably not been created, so the function creates it.
+
   handleSubmit = item => {
     this.toggle();
     if (item.id) {
       axios
         .put(`http://localhost:8000/api/tricks/${item.id}/`, item)
-        .then(res => this.refreshList());
+        .then(res => {
+          this.refreshList()
+          console.log("response",res);
+        })
+        .catch(err => console.log(err));
       return;
     }
     axios
       .post("http://localhost:8000/api/tricks/", item)
-      .then(res => this.refreshList());
+      .then(res => this.refreshList())
+      .catch(err => console.log(err));
+      
+     
+    // else {
+    //   if(item.description.length === 0){
+    //     item.description = " ";
+    //     alert("No description entered.");
+    //   }
+    //   if(item.title.length === 0){
+    //     item.title = " ";
+    //     alert("No trick name entered.");
+    //   }
+    //   axios
+    //     .post("http://localhost:8000/api/tricks/", item)
+    //     .then(res => this.refreshList())
+    //     .catch(function (error) {
+    //       console.log(error.response);
+    //     });
+    //   }
   };
 
   // NOTE: CSRF - This comes into play when we are trying to modify an API. Delete requests modify the API so so some research on how to safely perform a delete
   handleDelete = item => {
-    axios.defaults.xsrfCookieName = 'csrftoken'
-    axios.defaults.xsrfHeaderName = "X-CSRFToken"
     axios
       .delete(`http://localhost:8000/api/tricks/${item.id}/`, item)
       .then(res => this.refreshList())
-      .catch(function (error) {
-        console.log(error.response);
-      })
-      console.log(axios.defaults.xsrfCookieName)
-    console.log("delete function activated")
+      .catch(err => console.log(err))
   };
 
   createItem = () => {
