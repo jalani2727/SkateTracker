@@ -2,8 +2,8 @@
 
 import React, { Component } from "react";
 import Modal from "./components/Modal";
-import axios from "axios";
 
+import axios from "axios";
 
 
 
@@ -59,6 +59,7 @@ class App extends Component {
       </div>
     );
   };
+
   renderItems = () => {
     const { viewCompleted } = this.state;
     const newItems = this.state.trickList.filter(
@@ -76,7 +77,9 @@ class App extends Component {
           title={item.description}
         >
           {item.title}
+          
         </span>
+        
         <span>
           <button
             onClick={() => this.editItem(item)}
@@ -92,7 +95,9 @@ class App extends Component {
             Delete{" "}
           </button>
         </span>
+        
       </li>
+      
     ));
   };
   toggle = () => {
@@ -112,18 +117,36 @@ class App extends Component {
       .post("http://localhost:8000/api/tricks/", item)
       .then(res => this.refreshList());
   };
+
+  // NOTE: CSRF - This comes into play when we are trying to modify an API. Delete requests modify the API so so some research on how to safely perform a delete
   handleDelete = item => {
+    axios.defaults.xsrfCookieName = 'csrftoken'
+    axios.defaults.xsrfHeaderName = "X-CSRFToken"
     axios
-      .delete(`http://localhost:8000/api/tricks/${item.id}`)
-      .then(res => this.refreshList());
+      .delete(`http://localhost:8000/api/tricks/${item.id}/`, item)
+      .then(res => this.refreshList())
+      .catch(function (error) {
+        console.log(error.response);
+      })
+      console.log(axios.defaults.xsrfCookieName)
+    console.log("delete function activated")
   };
+
   createItem = () => {
     const item = { title: "", description: "", completed: false };
     this.setState({ activeItem: item, modal: !this.state.modal });
   };
+
   editItem = item => {
     this.setState({ activeItem: item, modal: !this.state.modal });
   };
+
+
+
+
+
+
+
 
   render() {
     

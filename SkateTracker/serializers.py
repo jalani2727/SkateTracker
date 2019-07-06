@@ -4,6 +4,7 @@ from .models import Trick
 class TrickSerializer(serializers.ModelSerializer):
     class Meta:
         #   Specify the model you want to work with and the fields that you want to convert to JSON below
+        # 'id' isn't specified in the model you created. It's automatically give to the items created from the model and should be accounted for.
         model = Trick
         fields = ('id', 'title', 'description', 'completed')
 
