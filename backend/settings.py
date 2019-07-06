@@ -32,7 +32,6 @@ ALLOWED_HOSTS = ['skatetracker.herokuapp.com', '127.0.0.1:8000', '127.0.0.1', 'l
 # Application definition
 
 INSTALLED_APPS = [
-    'SkateTracker',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders' 
 
+    'SkateTracker',
 ]
 
 MIDDLEWARE = [
@@ -128,7 +128,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),  # update the STATICFILES_DIRS
+    os.path.join(BASE_DIR, "build/static"),  # update the STATICFILES_DIRS
 )
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
