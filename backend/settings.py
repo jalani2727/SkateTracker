@@ -141,7 +141,8 @@ CORS_ORIGIN_WHITELIST = [
 ]
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True # added to solve CORS
-CORS_ALLOW_HEADERS = "X-CSRFToken"
 
-CSRF_COOKIE_NAME = "csrftoken"
-CSRF_HEADER_NAME = "X-CSRFToken"
+# Necessary for heroku
+# CORS_ALLOW_HEADERS = "X-CSRFToken"
+
+# CSRF_COOKIE_NAME = "csrftoken"

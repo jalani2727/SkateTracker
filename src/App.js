@@ -1,12 +1,14 @@
 // frontend/src/App.js
 
 import React, { Component } from "react";
-import Modal from "./components/Modal";
+import CustomModal from "./components/Modal";
 
 import axios from "axios";
 
 
 axios.defaults.withCredentials = true;
+
+// NOTE: This is pre-flight data. Adding these breaks the local version. delete and post requests will not go through if the two below are uncommented.
 // axios.defaults.xsrfCookieName = 'csrftoken'
 // axios.defaults.xsrfHeaderName = "X-CSRFToken"
 
@@ -178,7 +180,7 @@ class App extends Component {
           </div>
         </div>
         {this.state.modal ? (
-          <Modal activeItem={this.state.activeItem} toggle={this.toggle} onSave={this.handleSubmit}/>
+          <CustomModal activeItem={this.state.activeItem} toggle={this.toggle} onSave={this.handleSubmit}/>
         ) : null}
       </main>
     );

@@ -31,9 +31,10 @@ export default class CustomModal extends Component {
     };
     render() {
         const { toggle, onSave } = this.props;
-        // form validation with isEnabled
+        console.log(this.state.activeItem)
+        // form validation with an isEnabled variable
         const isEnabled = this.state.activeItem.title.length > 0 && this.state.activeItem.description.length > 0;
-        
+
         return (
             <Modal isOpen={true} toggle={toggle}>
             <ModalHeader toggle={toggle}>Trick</ModalHeader>
