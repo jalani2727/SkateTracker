@@ -32,7 +32,7 @@ ALLOWED_HOSTS = ['skatetracker.herokuapp.com', '127.0.0.1:8000', '127.0.0.1', 'l
 # Application definition
 
 INSTALLED_APPS = [
-    'SkateTracker'
+    'SkateTracker',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
-    'corsheaders',   
+    'corsheaders' 
 
 ]
 
