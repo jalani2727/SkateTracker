@@ -102,13 +102,16 @@ class App extends Component {
       
     ));
   };
+  // For pulling up and dismissing the modal
   toggle = () => {
     this.setState({ modal: !this.state.modal });
   };
 
+
   // handleSubmit() takes care of both the create and update operations. If the item passed as the parameter doesn’t have an id, then it has probably not been created, so the function creates it.
 
   handleSubmit = item => {
+    
     this.toggle();
     if (item.id) {
       axios
@@ -122,26 +125,13 @@ class App extends Component {
     }
     axios
       .post("http://localhost:8000/api/tricks/", item)
-      .then(res => this.refreshList())
+      .then(res => {
+        this.refreshList()
+        console.log("response",res);
+      })
       .catch(err => console.log(err));
-      
-     
-    // else {
-    //   if(item.description.length === 0){
-    //     item.description = " ";
-    //     alert("No description entered.");
-    //   }
-    //   if(item.title.length === 0){
-    //     item.title = " ";
-    //     alert("No trick name entered.");
-    //   }
-    //   axios
-    //     .post("http://localhost:8000/api/tricks/", item)
-    //     .then(res => this.refreshList())
-    //     .catch(function (error) {
-    //       console.log(error.response);
-    //     });
-    //   }
+  
+    
   };
 
   // NOTE: CSRF - This comes into play when we are trying to modify an API. Delete requests modify the API so so some research on how to safely perform a delete

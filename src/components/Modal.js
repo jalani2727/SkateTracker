@@ -10,6 +10,7 @@ import {
     Input,
     Label
 } from "reactstrap";
+
 // handling functions like added and editing tricks 
 export default class CustomModal extends Component {
     constructor(props) {
@@ -25,10 +26,14 @@ export default class CustomModal extends Component {
             value = e.target.checked;
         }
         const activeItem = { ...this.state.activeItem, [name]: value };
+        
         this.setState({activeItem});
     };
     render() {
         const { toggle, onSave } = this.props;
+        // form validation with isEnabled
+        const isEnabled = this.state.activeItem.title.length > 0 && this.state.activeItem.description.length > 0;
+        
         return (
             <Modal isOpen={true} toggle={toggle}>
             <ModalHeader toggle={toggle}>Trick</ModalHeader>
@@ -68,7 +73,7 @@ export default class CustomModal extends Component {
               </Form>
             </ModalBody>
             <ModalFooter>
-              <Button color="success" onClick={() => onSave(this.state.activeItem)}>
+              <Button disabled={!isEnabled} color="success" onClick={() => onSave(this.state.activeItem)}>
                 Save
               </Button>
             </ModalFooter>
