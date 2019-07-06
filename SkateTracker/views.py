@@ -10,3 +10,4 @@ from .models import Trick
 class TrickView(viewsets.ModelViewSet):
     serializer_class = TrickSerializer
     queryset = Trick.objects.all()
+    
