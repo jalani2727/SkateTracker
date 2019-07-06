@@ -136,11 +136,12 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # NOTE This is where the React Front-end will be served 
     # This need to be a list and not a tuple, as shown in the walkthrough
 CORS_ORIGIN_WHITELIST = [
-         'http://localhost:3000'
+         'http://localhost:3000',
+         'https://skatetracker.herokuapp.com'
 ]
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True # added to solve CORS
+CORS_ALLOW_HEADERS = "X-CSRFToken"
 
 CSRF_COOKIE_NAME = "csrftoken"
 CSRF_HEADER_NAME = "X-CSRFToken"
-CORS_ALLOW_HEADERS = "X-CSRFToken"
