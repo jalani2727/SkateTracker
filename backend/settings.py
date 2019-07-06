@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['skatetracker.herokuapp.com', '127.0.0.1:8000', '127.0.0.1', 'l
 # Application definition
 
 INSTALLED_APPS = [
+    'SkateTracker'
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,7 +43,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',   
 
-    'SkateTracker'
 ]
 
 MIDDLEWARE = [
@@ -63,7 +63,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'SkateTracker/build')],
+        'DIRS': [os.path.join(BASE_DIR, 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
