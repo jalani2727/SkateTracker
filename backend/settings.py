@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 's3ccl8nq(_n_h!dqenb3^36b-cib#(box1+%z*=x-dusut!4f5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['skatetracker.herokuapp.com', '127.0.0.1:8000', '127.0.0.1', 'localhost']
 
