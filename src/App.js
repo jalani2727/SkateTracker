@@ -2,7 +2,7 @@
 
 import React, { Component } from "react";
 import CustomModal from "./components/Modal";
-
+import DescriptionModal from "./components/DescriptionModal";
 import axios from "axios";
 
 
@@ -19,6 +19,7 @@ class App extends Component {
     super(props);
     this.state = {
       modal: false,
+      descriptionModal: false,
       viewCompleted: false,
       activeItem: {
         title: "",
@@ -81,7 +82,9 @@ class App extends Component {
           }`}
           title={item.description}
         >
-          {item.title}
+          <button className="btn btn-link"
+            onClick={() => this.showDescription(item)}
+          >{item.title}</button>
           
         </span>
         
@@ -110,11 +113,18 @@ class App extends Component {
     this.setState({ modal: !this.state.modal });
   };
 
+  descriptionToggle = () => {
+    this.setState({ descriptionModal: !this.state.descriptionModal})
+  }
 
+  wikiSearch = title => {
+    window.location.href = "https://en.wikipedia.org/wiki/Flip_trick";
+    alert("You are about to be re-directed to https://en.wikipedia.org ")
+    return false
+  }
   // handleSubmit() takes care of both the create and update operations. If the item passed as the parameter doesn’t have an id, then it has probably not been created, so the function creates it.
 
   handleSubmit = item => {
-    
     this.toggle();
     if (item.id) {
       axios
@@ -144,6 +154,10 @@ class App extends Component {
       .then(res => this.refreshList())
       .catch(err => console.log(err))
   };
+
+  showDescription = item => {
+    this.setState({activeItem:item, descriptionModal: !this.state.descriptionModal })
+  }
 
   createItem = () => {
     const item = { title: "", description: "", completed: false };
@@ -181,6 +195,9 @@ class App extends Component {
         </div>
         {this.state.modal ? (
           <CustomModal activeItem={this.state.activeItem} toggle={this.toggle} onSave={this.handleSubmit}/>
+        ) : null}
+        {this.state.descriptionModal ? (
+          <DescriptionModal activeItem={this.state.activeItem} toggle={this.descriptionToggle} wikiLink={this.wikiSearch}/>
         ) : null}
       </main>
     );
